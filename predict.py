@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 from model import U_Net
 
+image = 'place your image path here'
+
 res = 224
 model = U_Net(n_classes=18)
 model.load_weights('last_model_weights.h5')
@@ -24,7 +26,7 @@ model.load_weights('last_model_weights.h5')
 #     # mask = np.array(cv.cvtColor(mask, cv.COLOR_HSV2RGB))
 #     return mask
 
-imgg = cv.resize(cv.cvtColor(cv.imread('any_image.png'), cv.COLOR_BGR2RGB), (res,res), interpolation=cv.INTER_NEAREST)
+imgg = cv.resize(cv.cvtColor(cv.imread(image), cv.COLOR_BGR2RGB), (res,res), interpolation=cv.INTER_NEAREST)
 img = tf.expand_dims(imgg, axis=0)
 img = img/255
 Y = model(img)
