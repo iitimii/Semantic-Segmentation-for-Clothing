@@ -7,4 +7,5 @@ Place the path of the image you want to predict in the image variable and run
 Enjoy!!
 
 eg. 
-![image](https://github.com/iitimii/Semantic-Segmentation-for-Clothing/assets/106264110/924d397e-5b35-4ccd-bbbb-9c649bc41225)
+![image](https://github.com/iitimii/Semantic-Segmentation-for-Clothing/assets/106264110/942c9917-1622-4656-885c-53a032fe65b8)
+
