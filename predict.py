@@ -9,7 +9,7 @@ image = 'place your image path here'
 
 res = 224
 model = U_Net(n_classes=18)
-model.load_weights('last_model_weights.h5')
+model.load_weights('big_last_model_weights.h5')
 #model weights file = #https://drive.google.com/file/d/1-E9leFxYl-nlJtHCYVDJhh7CAARumtdA/view?usp=sharing
 
 # df = pd.read_csv(os.path.join(base_path, 'labels.csv'))
