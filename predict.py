@@ -1,41 +1,37 @@
 import tensorflow as tf
 import cv2 as cv
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
 from model import U_Net
 
-image = 'place your image path here'
-
-res = 224
+# Load the U-Net model
 model = U_Net(n_classes=18)
+
 model.load_weights('big_last_model_weights.h5')
-#model weights file = #https://drive.google.com/file/d/1-E9leFxYl-nlJtHCYVDJhh7CAARumtdA/view?usp=sharing
 
-# df = pd.read_csv(os.path.join(base_path, 'labels.csv'))
-# hues = {}
-# for v, i in enumerate(df['value']):
-#     hues[i] = (v,int(v*180/18))
+# Path to the input image
+image_path = 'path/to/input_image.jpg'
 
-# def get_color(mask):
-#     for i, v in hues.values():
-#         mask[mask==i] = v
-#     k = np.ones((res, res, 2))*1
-#     mask = np.concatenate((tf.expand_dims(mask, axis=-1),k), axis=-1)
-#     print(mask.shape)
-#     # mask = np.array(cv.cvtColor(mask, cv.COLOR_HSV2RGB))
-#     return mask
+# Read and preprocess the input image
+img = cv2.imread(image_path)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img = cv2.resize(img, (224, 224))
+img = img / 255.0
+img = tf.expand_dims(img, axis=0)
 
-imgg = cv.resize(cv.cvtColor(cv.imread(image), cv.COLOR_BGR2RGB), (res,res), interpolation=cv.INTER_NEAREST)
-img = tf.expand_dims(imgg, axis=0)
-img = img/255
-Y = model(img)
-Y = np.squeeze(np.argmax(Y, axis=-1))
-# Y_rgb = get_color(Y)
-plt.imshow(imgg)
+# Get the segmentation mask from the model
+mask = model.predict(img)[0]
+mask = tf.argmax(mask, axis=-1)
+
+# Display the input image and segmentation mask
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+
+axs[0].imshow(img[0])
+axs[0].set_title('Input Image')
+axs[0].axis('off')
+
+axs[1].imshow(mask, cmap='jet')
+axs[1].set_title('Segmentation Mask')
+axs[1].axis('off')
+
 plt.show()
-plt.imshow(Y, cmap='jet')
-plt.show()
-# plt.imshow(np.add(Y_rgb/255, imgg))
-# plt.show()
-
