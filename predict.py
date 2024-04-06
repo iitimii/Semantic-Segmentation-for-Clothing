@@ -5,7 +5,7 @@ import numpy as np
 from model import U_Net
 
 # Load the U-Net model
-model = U_Net(n_classes=18)
+model = U_Net(n_classes=19)
 
 model.load_weights('big_last_model_weights.h5')
 
